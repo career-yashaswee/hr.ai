@@ -100,7 +100,7 @@ const verifyEmail = async (req, res, next) => {
 		}
 
 		// Verify the provided code
-		if (verificationCode.verifyCodes(code)) {
+		if (verificationCode.verifyCode(code)) {
 			// Update user's verification status
 			user.isVerified = true;
 			await user.save();

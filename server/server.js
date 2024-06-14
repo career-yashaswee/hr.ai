@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./lib/dbconnect");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const cors = require("cors");
 
 require("dotenv").config();
 const app = express();
@@ -17,6 +18,7 @@ connectDB();
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
+app.use(cors());
 
 // Define authentication routes
 app.use("/auth", authRoutes);
@@ -28,6 +30,7 @@ app.use("/user", userRoutes);
 const upload = multer({ dest: "uploads/" });
 
 // Endpoint to convert speech to text
+//TODO: Take these API Calls on Authenticated Routes
 app.post("/api/speech-to-text", upload.single("audio"), async (req, res) => {
 	const audioFile = req.file;
 
