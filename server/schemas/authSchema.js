@@ -15,6 +15,12 @@ const loginSchema = z.object({
 	}),
 });
 
+const googleLoginSchema = z.object({
+	body: z.object({
+		token: z.string().min(1, "Google OAuth token is required"),
+	}),
+});
+
 const verifyEmailSchema = z.object({
 	body: z.object({
 		email: z.string().email(),
@@ -26,4 +32,5 @@ module.exports = {
 	registerSchema,
 	loginSchema,
 	verifyEmailSchema,
+	googleLoginSchema,
 };

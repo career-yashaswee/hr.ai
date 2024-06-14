@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
 const VCode = require("../models/VerificationCode");
+const sendVerificationEmail = require("../helpers/sendVerificationEmail");
+const { OAuth2Client } = require("google-auth-library");
 
 // Register a new user
 const register = async (req, res, next) => {
@@ -18,12 +20,25 @@ const register = async (req, res, next) => {
 		const user = new User({ username, email, password: password });
 		await user.save();
 
+		const verifyCode = user.generateCode();
 		const verificationCode = new VCode({
 			email: user.email,
-			code: user.generateCode(),
+			code: verifyCode,
 		});
 
 		await verificationCode.save();
+		const emailResponse = await sendVerificationEmail(
+			email,
+			username,
+			verifyCode
+		);
+
+		if (!emailResponse.success) {
+			return Response.json(
+				{ message: "Error Sending Emails" },
+				{ status: 500 }
+			);
+		}
 
 		res.json({ message: "Registration successful, Verify your email address" });
 	} catch (error) {
@@ -98,4 +113,35 @@ const verifyEmail = async (req, res, next) => {
 	}
 };
 
-module.exports = { register, login, verifyEmail };
+const googleLogin = async (req, res, next) => {
+	const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+	const { token } = req.body;
+	try {
+		const ticket = await client.verifyIdToken({
+			idToken: token,
+			audience: process.env.GOOGLE_CLIENT_ID,
+		});
+		const { sub, email, name, picture } = ticket.getPayload();
+
+		let user = await User.findOne({ googleId: sub });
+		if (!user) {
+			user = new User({
+				googleId: sub,
+				username: user.generateUsername(),
+				email,
+				password: user.generatePassword(),
+				role: "user",
+				avatar: picture,
+				isVerified: true,
+			});
+			await user.save();
+		}
+
+		res.status(200).json({ message: "User registered successfully", user });
+	} catch (error) {
+		console.error("Error verifying Google token:", error);
+		res.status(500).json({ message: "Internal server error" });
+	}
+};
+
+module.exports = { register, login, verifyEmail, googleLogin };
