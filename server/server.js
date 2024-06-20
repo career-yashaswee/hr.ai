@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./lib/dbconnect");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/interview_sess");
 
 require("dotenv").config();
 const app = express();
@@ -24,8 +25,13 @@ app.use("/auth", authRoutes);
 // Define user routes
 app.use("/user", userRoutes);
 
+//define interview_session routes
+app.use("/api/session", interviewSessionRoutes);
+
+
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" });
+
 
 // Endpoint to convert speech to text
 app.post("/api/speech-to-text", upload.single("audio"), async (req, res) => {
