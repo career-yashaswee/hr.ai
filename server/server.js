@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./lib/dbconnect");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
-const userRoutes = require("./routes/interview_sess");
+const interviewSessionRoutes = require("./routes/interview_sess");
 
 require("dotenv").config();
 const app = express();
