@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
 			default: "user",
 		},
 		avatar: { type: String },
-		
+
 		isVerified: {
 			type: Boolean,
 			default: false,
@@ -77,17 +77,13 @@ userSchema.methods.generateCode = function () {
 	}
 };
 
-
 userSchema.methods.isUniqueUsername = function (username) {
 	try {
-		if(userSchema.findOne({username,isVerified:true})) {
-			return 
+		if (userSchema.findOne({ username, isVerified: true })) {
+			return;
 		}
-	} catch {
-
-	}
-} 
-
+	} catch {}
+};
 
 /**
  * Method to generate a unique username based on the user's name and email address.
@@ -155,9 +151,6 @@ userSchema.statics.generatePassword = function () {
 		throw new Error("Error generating password");
 	}
 };
-
-
-
 
 const User = mongoose.model("User", userSchema);
 

@@ -5,11 +5,15 @@ const transcribeAudio = require("./api/ai/speech-to-text");
 const textToSpeech = require("./api/ai/text-to-speech");
 const bodyParser = require("body-parser");
 const connectDB = require("./lib/dbconnect");
+const cors = require("cors");
+require("dotenv").config();
+
+//Routes
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
-const cors = require("cors");
+const scenarioRoutes = require("./routes/scenario");
+const sessionRoutes = require("./routes/session");
 
-require("dotenv").config();
 const app = express();
 const port = process.env.DEV_PORT || 3000;
 
@@ -20,11 +24,10 @@ connectDB();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Define authentication routes
 app.use("/auth", authRoutes);
-
-// Define user routes
 app.use("/user", userRoutes);
+app.use("/scenario", scenarioRoutes);
+app.use("/session", sessionRoutes);
 
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" });
