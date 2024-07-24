@@ -6,7 +6,8 @@ const {
 	getScenario,
 	updateScenario,
 	deleteScenario,
-	listSessions,
+	// listSessions,
+	countScenarios,
 } = require("../controllers/scenario");
 const router = express.Router();
 
@@ -20,8 +21,9 @@ const { getScenarioByUserById } = require("../schemas/interviewSessionSchema");
 router.post("/", validate(newJobScenarioSchema), createScenario);
 router.get("/:scenarioId", validate(getScenarioSchema), getScenario);
 router.get("/", validate(listScenariosSchema), listScenarios);
-router.get("/:listSession", listSessions);
+// router.get("/:listSession", listSessions);
 router.patch("/:scenarioId", updateScenario);
 router.delete("/:scenarioId", deleteScenario);
+router.get("/:countscenariosbyuserID",countScenarios );
 
 module.exports = router;
