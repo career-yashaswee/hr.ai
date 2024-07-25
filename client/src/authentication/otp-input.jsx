@@ -28,6 +28,7 @@ import {
 	CardContent,
 	CardFooter,
 	CardTitle,
+	CardDescription,
 } from "@/components/ui/card";
 import { verifyOTP } from "@/helpers/authAPI";
 
@@ -71,15 +72,23 @@ export default function InputOTPForm() {
 		<div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
 			<div className="min-h-screen flex items-center justify-center">
 				<Toaster position="top-center" richColors />
-				<div className="grid gap-2 text-left">
+				<div className="grid gap-1 text-left">
 					<Card className="mx-auto max-w-sm">
 						<CardHeader>
-							<CardTitle clasname="text-xl pl-6">Verify Your Email</CardTitle>
+							<CardTitle clasname="text-xl pl-2">Verify Your Email</CardTitle>
+							<CardDescription className="">
+								Email sent to{" "}
+								{
+									<a className="font-mono text-xs">
+										{localStorage.getItem("user@email")}
+									</a>
+								}
+							</CardDescription>
 						</CardHeader>
 						<CardContent>
 							<Form {...form}>
 								<form onSubmit={form.handleSubmit(onSubmit)}>
-									<div className="grid gap-4">
+									<div className="grid gap-2">
 										<div className="grid gap-2"></div>
 										<FormField
 											control={form.control}
@@ -109,7 +118,10 @@ export default function InputOTPForm() {
 										/>
 										<CardFooter>
 											{loading ? (
-												<LoadingButton loading></LoadingButton>
+												<LoadingButton
+													loading
+													className="w-full"
+												></LoadingButton>
 											) : (
 												<Button
 													variant="shine"

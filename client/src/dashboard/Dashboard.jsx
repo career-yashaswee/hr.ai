@@ -36,6 +36,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Scenario from "./scenario/Scenario";
 import Interview from "./interview/Interview";
+import Resume from "./resume/Resume";
 import { ProgressBar } from "@/components/ProgressBar";
 import { getUserId } from "@/helpers/api";
 import { Charts } from "./Charts";
@@ -88,7 +89,11 @@ function Dashboard() {
 			case "Report":
 				return <div>Report</div>;
 			case "Resume":
-				return <div>Reusme</div>;
+				return (
+					<div>
+						<Resume></Resume>
+					</div>
+				);
 			default:
 				return <div>Dashboard Content</div>;
 		}
@@ -303,7 +308,6 @@ function Dashboard() {
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</header>
-
 				{renderComponent()}
 			</div>
 		</div>

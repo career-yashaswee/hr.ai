@@ -25,6 +25,7 @@ import {
 	createScenario,
 	updateScenario,
 } from "@/helpers/scenarioAPI";
+import { Info } from "lucide-react";
 
 function Scenario({ userId }) {
 	const [title, setTitle] = useState("");
@@ -137,18 +138,19 @@ function Scenario({ userId }) {
 			</div>
 			{scenarios.length === 0 ? (
 				<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
-					<div className="flex flex-col items-center gap-1 text-center">
+					<div className="flex flex-col items-center gap-1 text-center pb-8 pt-8">
+						<Info></Info>
 						<h3 className="text-2xl font-bold tracking-tight">
 							You have no Scenarios
 						</h3>
 						<p className="text-sm text-muted-foreground">
-							You can start scheduling sessions as soon as you add a Scenario.
+							You can start adding interviews as soon as you add a Scenario.
 						</p>
 						<Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
 							<DialogTrigger asChild>
 								<Button
 									className="mt-4"
-									variant="outline"
+									variant="shine"
 									onClick={() => handleOpen}
 								>
 									Add Scenario
