@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
-	CardDescription,
 	CardHeader,
 	CardTitle,
 	CardFooter,
@@ -243,7 +242,7 @@ function Scenario({ userId }) {
 						<Card key={scenario._id} className="flex flex-col">
 							<CardHeader>
 								<CardTitle>{scenario.jobTitle}</CardTitle>
-								<CardDescription>{scenario.company}</CardDescription>
+								<p>{scenario.company}</p>
 							</CardHeader>
 							<CardContent>
 								<p>{scenario.jobDescription}</p>
@@ -253,7 +252,7 @@ function Scenario({ userId }) {
 								<Button
 									variant="outline"
 									size="sm"
-									onClick={handleEdit(scenario)}
+									onClick={() => handleEdit(scenario)}
 								>
 									Edit
 								</Button>

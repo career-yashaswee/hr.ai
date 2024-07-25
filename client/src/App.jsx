@@ -13,62 +13,65 @@ import { NetworkStatusProvider } from "./context/NetworkStatusContext";
 import { Toaster } from "sonner";
 import NetworkStatusHandler from "./helpers/NetworkStatusHandler";
 import InputOTPForm from "./authentication/otp-input";
+import { ThemeProvider } from "@/components/theme-provider";
 function App() {
 	return (
-		<NetworkStatusProvider>
-			<Toaster position="bottom-right" richColors />
-			<NetworkStatusHandler />
-			<Router>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/log-in" element={<Login />} />
-					<Route path="/sign-up" element={<SignUp />} />
-					<Route path="/verify" element={<InputOTPForm />} />
-					<Route
-						path="/dashboard"
-						element={
-							<ProtectedRoute>
-								<Dashboard />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="/dashboard/session"
-						element={
-							<ProtectedRoute>
-								<InterviewSession />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="scenario"
-						element={
-							<ProtectedRoute>
-								<Scenario />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path="interview"
-						element={
-							<ProtectedRoute>
-								<Interview />
-							</ProtectedRoute>
-						}
-					/>
+		<ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+			<NetworkStatusProvider>
+				<Toaster position="bottom-right" richColors />
+				<NetworkStatusHandler />
+				<Router>
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/log-in" element={<Login />} />
+						<Route path="/sign-up" element={<SignUp />} />
+						<Route path="/verify" element={<InputOTPForm />} />
+						<Route
+							path="/dashboard"
+							element={
+								<ProtectedRoute>
+									<Dashboard />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="/dashboard/session"
+							element={
+								<ProtectedRoute>
+									<InterviewSession />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="scenario"
+							element={
+								<ProtectedRoute>
+									<Scenario />
+								</ProtectedRoute>
+							}
+						/>
+						<Route
+							path="interview"
+							element={
+								<ProtectedRoute>
+									<Interview />
+								</ProtectedRoute>
+							}
+						/>
 
-					<Route
-						path="setting"
-						element={
-							<ProtectedRoute>
-								<Setting />
-							</ProtectedRoute>
-						}
-					/>
-					<Route path="*" element={<Error />} />
-				</Routes>
-			</Router>
-		</NetworkStatusProvider>
+						<Route
+							path="setting"
+							element={
+								<ProtectedRoute>
+									<Setting />
+								</ProtectedRoute>
+							}
+						/>
+						<Route path="*" element={<Error />} />
+					</Routes>
+				</Router>
+			</NetworkStatusProvider>
+		</ThemeProvider>
 	);
 }
 

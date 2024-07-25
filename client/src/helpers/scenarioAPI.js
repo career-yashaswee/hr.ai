@@ -1,3 +1,4 @@
+import { SCENARIO_API_URI } from "@/routes/route-api";
 import axios from "axios";
 
 export const listScenarios = async (userId) => {
@@ -5,7 +6,7 @@ export const listScenarios = async (userId) => {
 		const config = {
 			method: "get",
 			maxBodyLength: Infinity,
-			url: `${import.meta.env.VITE_BACKEND_URI}/scenario?userId=${userId}`,
+			url: SCENARIO_API_URI.LIST_BY_ID(userId),
 			headers: {},
 		};
 		const response = await axios.request(config);
@@ -23,7 +24,7 @@ export const createScenario = async (obj) => {
 		const config = {
 			method: "post",
 			maxBodyLength: Infinity,
-			url: `${import.meta.env.VITE_BACKEND_URI}/scenario`,
+			url: SCENARIO_API_URI.CREATE,
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -45,7 +46,7 @@ export const updateScenario = async (id, updatedData) => {
 		const config = {
 			method: "patch",
 			maxBodyLength: Infinity,
-			url: `${import.meta.env.VITE_BACKEND_URI}/scenario/${id}`,
+			url: SCENARIO_API_URI.UPDATE_BY_ID,
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -65,7 +66,7 @@ export const deleteScenario = async (id) => {
 		const config = {
 			method: "delete",
 			maxBodyLength: Infinity,
-			url: `${import.meta.env.VITE_BACKEND_URI}/scenario/${id}`,
+			url: SCENARIO_API_URI.DELETE_BY_ID(id),
 			headers: {},
 		};
 

@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import {
-	TextureCard,
-	TextureCardHeader,
-	TextureCardTitle,
-	TextureCardContent,
-	TextureCardDescription,
-	TextureSeparator,
-} from "../components/ui/texture-card";
+	Card,
+	CardHeader,
+	CardTitle,
+	CardContent,
+	CardDescription,
+} from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { useForm, Controller } from "react-hook-form";
@@ -113,22 +112,19 @@ export default function SignUp() {
 	};
 
 	return (
-		<div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+		<div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
 			<div className="min-h-screen flex items-center justify-center">
 				<Toaster position="top-center" richColors />
 				<div className="grid gap-2 text-left">
-					<TextureCard className="mx-auto max-w-sm">
-						<TextureCardHeader>
-							<TextureCardTitle className="text-xl pl-6">
-								Sign Up
-							</TextureCardTitle>
-							<TextureCardDescription className="pl-6 pb-4">
+					<Card className="mx-auto max-w-sm">
+						<CardHeader>
+							<CardTitle className="text-xl pl-2">Sign Up</CardTitle>
+							<CardDescription className="pl-2 pb-4">
 								Enter your information to create an account
-							</TextureCardDescription>
-							<TextureSeparator />
-						</TextureCardHeader>
+							</CardDescription>
+						</CardHeader>
 
-						<TextureCardContent>
+						<CardContent>
 							<form onSubmit={handleSubmit(onSubmit)}>
 								<div className="grid gap-4">
 									<div className="grid gap-2">
@@ -284,8 +280,8 @@ export default function SignUp() {
 									Sign in
 								</Link>
 							</div>
-						</TextureCardContent>
-					</TextureCard>
+						</CardContent>
+					</Card>
 				</div>
 			</div>
 		</div>

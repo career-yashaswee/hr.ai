@@ -1,8 +1,8 @@
 import axios from "axios";
-import API_URI from "@/routes/route-api";
+import { AUTH_API_URI } from "@/routes/route-api";
 export const isUniqueUsername = async (username) => {
 	try {
-		const response = await axios.get(API_URI.CHECK_USERNAME(username));
+		const response = await axios.get(AUTH_API_URI.CHECK_USERNAME(username));
 		return response.data.status; // Ensure this returns a boolean
 	} catch (error) {
 		return error;
@@ -21,7 +21,7 @@ export const registerUser = async (userData) => {
 	const config = {
 		method: "post",
 		maxBodyLength: Infinity,
-		url: API_URI.REGISTER_USER,
+		url: AUTH_API_URI.REGISTER_USER,
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -45,7 +45,7 @@ export const verifyOTP = async (email, code) => {
 	let config = {
 		method: "post",
 		maxBodyLength: Infinity,
-		url: API_URI.VERIFY_OTP,
+		url: AUTH_API_URI.VERIFY_OTP,
 		headers: {
 			"Content-Type": "application/json",
 		},

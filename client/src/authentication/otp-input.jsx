@@ -23,12 +23,12 @@ import {
 	InputOTPSlot,
 } from "@/components/ui/input-otp";
 import {
-	TextureCard,
-	TextureCardHeader,
-	TextureCardContent,
-	TextureCardFooter,
-	TextureCardTitle,
-} from "@/components/ui/texture-card";
+	Card,
+	CardHeader,
+	CardContent,
+	CardFooter,
+	CardTitle,
+} from "@/components/ui/card";
 import { verifyOTP } from "@/helpers/authAPI";
 
 const FormSchema = z.object({
@@ -72,13 +72,11 @@ export default function InputOTPForm() {
 			<div className="min-h-screen flex items-center justify-center">
 				<Toaster position="top-center" richColors />
 				<div className="grid gap-2 text-left">
-					<TextureCard className="mx-auto max-w-sm">
-						<TextureCardHeader>
-							<TextureCardTitle clasname="text-xl pl-6">
-								Verify Your Email
-							</TextureCardTitle>
-						</TextureCardHeader>
-						<TextureCardContent>
+					<Card className="mx-auto max-w-sm">
+						<CardHeader>
+							<CardTitle clasname="text-xl pl-6">Verify Your Email</CardTitle>
+						</CardHeader>
+						<CardContent>
 							<Form {...form}>
 								<form onSubmit={form.handleSubmit(onSubmit)}>
 									<div className="grid gap-4">
@@ -109,7 +107,7 @@ export default function InputOTPForm() {
 												</FormItem>
 											)}
 										/>
-										<TextureCardFooter>
+										<CardFooter>
 											{loading ? (
 												<LoadingButton loading></LoadingButton>
 											) : (
@@ -121,12 +119,12 @@ export default function InputOTPForm() {
 													Verify
 												</Button>
 											)}
-										</TextureCardFooter>
+										</CardFooter>
 									</div>
 								</form>
 							</Form>
-						</TextureCardContent>
-					</TextureCard>
+						</CardContent>
+					</Card>
 				</div>
 			</div>
 		</div>
