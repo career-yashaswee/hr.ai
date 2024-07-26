@@ -12,7 +12,7 @@ export const listScenarios = async (userId) => {
 		const response = await axios.request(config);
 		return response.data;
 	} catch (error) {
-		console.error("Error listing scenarios:", error);
+		// console.error("Error listing scenarios:", error);
 		throw error;
 	}
 };
@@ -34,7 +34,7 @@ export const createScenario = async (obj) => {
 		const response = await axios.request(config);
 		return response.data;
 	} catch (error) {
-		console.error("Error creating scenario:", error);
+		// console.error("Error creating scenario:", error);
 		throw error;
 	}
 };
@@ -56,7 +56,7 @@ export const updateScenario = async (id, updatedData) => {
 		const response = await axios.request(config);
 		return response.data;
 	} catch (error) {
-		console.error("Error updating scenario:", error);
+		// console.error("Error updating scenario:", error);
 		throw error;
 	}
 };
@@ -73,7 +73,7 @@ export const deleteScenario = async (id) => {
 		const response = await axios.request(config);
 		return response.data;
 	} catch (error) {
-		console.error("Error deleting scenario:", error);
+		// console.error("Error deleting scenario:", error);
 		throw error;
 	}
 };

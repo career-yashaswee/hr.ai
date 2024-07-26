@@ -12,3 +12,8 @@ export const SCENARIO_API_URI = {
 	UPDATE_BY_ID: (userID) => `${BASE_URL}/scenario/${userID}`,
 	DELETE_BY_ID: (userID) => `${BASE_URL}/scenario/${userID}`,
 };
+
+export const RESUME_API_URI = {
+	UPLOAD: `${BASE_URL}/resume`,
+	LIST: (userId) => `${BASE_URL}/resume/${userId}`,
+};
