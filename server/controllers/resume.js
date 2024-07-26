@@ -34,9 +34,33 @@ const uploadResume = async (req, res, next) => {
 	} catch (error) {}
 };
 
+const listResume = async (req, res, next) => {
+	const { _id } = req.params;
+	try {
+		const [files] = await storage.bucket(bucketName).getFiles({
+			prefix: _id,
+		});
+		let obj = {};
+		if (files.length == 0) {
+			res.status(404).json({ array: 0 });
+			return;
+		}
+		obj = files.map((file) => ({
+			name: file.metadata.name,
+			size: file.metadata.size,
+			timeCreated: file.metadata.timeCreated,
+		}));
+		res.status(200).json({ array: obj });
+	} catch (err) {
+		res.status(400).json({ error: err });
+		console.error("Error listing files:", err);
+	}
+};
+
 const downloadResume = async (req, res, next) => {};
 
 module.exports = {
 	uploadResume,
+	listResume,
 	downloadResume,
 };
