@@ -12,7 +12,6 @@ const useSessionManager = () => {
 				if (error.response.status === 401) {
 					const { code } = error.response.data;
 					if (code === "AUTH_REQ") {
-						const a = 5;
 					} else if (code === "TOKEN_EXPIRED") {
 						setIsSessionExpired(true);
 					} else {
