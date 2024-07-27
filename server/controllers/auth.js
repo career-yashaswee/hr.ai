@@ -1,6 +1,5 @@
 const sign = require("jsonwebtoken");
 const User = require("../models/User");
-
 const VCode = require("../models/VerificationCode");
 
 const Email = require("../helpers/sendVerificationEmail");
@@ -59,16 +58,22 @@ const login = async (req, res, next) => {
 	try {
 		const user = await User.findOne({ username });
 		if (!user) {
-			return res.status(404).json({ message: "User not found" });
+			return res
+				.status(404)
+				.json({ code: "USR_NOT_FOUND", message: "User not found" });
 		}
 
 		if (!user.isVerified) {
-			return res.status(403).json({ message: "User not verified" });
+			return res
+				.status(403)
+				.json({ code: "USR_NOT_VERIFY", message: "User not verified" });
 		}
 
 		const passwordMatch = await user.comparePassword(password);
 		if (!passwordMatch) {
-			return res.status(401).json({ message: "Password do not match" });
+			return res
+				.status(401)
+				.json({ code: "PWD_INVALID", message: "Password do not match" });
 		}
 
 		const token = sign.sign(
@@ -187,11 +192,33 @@ const decodeToken = async (req, res, next) => {
 	}
 };
 
+const validateToken = async (req, res, next) => {
+	const token = req.headers.authorization?.split(" ")[1];
+	if (!token) {
+		res.status(401).json({ code: "TOKEN_REQ" });
+		return;
+	}
+	try {
+		const decodedToken = sign.verify(token, process.env.SECRET_KEY);
+		req.user = decodedToken;
+	} catch (error) {
+		console.log(error);
+		if (error.name === "TokenExpiredError") {
+			res.status(401).send({ code: "TOKEN_EXPIRED" });
+			return;
+		} else {
+			res.status(401).send({ code: "TOKEN_INVALID" });
+			return;
+		}
+	}
+};
+
 module.exports = {
 	register,
 	login,
 	verifyEmail,
 	googleLogin,
 	decodeToken,
+	validateToken,
 	checkUsername,
 };

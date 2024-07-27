@@ -6,6 +6,7 @@ const {
 	googleLogin,
 	decodeToken,
 	checkUsername,
+	validateToken,
 } = require("../controllers/auth");
 const {
 	registerSchema,
@@ -23,4 +24,5 @@ router.post("/verify", validate(verifyEmailSchema), verifyEmail);
 router.get("/user/:username", validate(checkUserameSchema), checkUsername);
 // router.post("/google", validate(googleLoginSchema), googleLogin);
 router.post("/decode-token", decodeToken);
+router.get("/validate", validateToken);
 module.exports = router;

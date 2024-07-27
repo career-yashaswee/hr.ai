@@ -1,4 +1,5 @@
 const express = require("express");
+const { authenticate } = require("../middlewares/auth");
 const { validate } = require("../middlewares/validateSchema");
 const {
 	createScenario,
@@ -19,7 +20,7 @@ const { getScenarioByUserById } = require("../schemas/interviewSessionSchema");
 
 router.post("/", validate(newJobScenarioSchema), createScenario);
 router.get("/:scenarioId", validate(getScenarioSchema), getScenario);
-router.get("/", validate(listScenariosSchema), listScenarios);
+router.get("/", authenticate, validate(listScenariosSchema), listScenarios);
 router.get("/:listSession", listSessions);
 router.patch("/:scenarioId", updateScenario);
 router.delete("/:scenarioId", deleteScenario);

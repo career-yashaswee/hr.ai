@@ -1,4 +1,5 @@
 const { Storage } = require("@google-cloud/storage");
+const path = require("path");
 require("dotenv").config();
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
@@ -15,8 +16,10 @@ const uploadResume = async (req, res, next) => {
 		if (!file) {
 			res.status(400).json("No File Uploaded");
 		}
-
-		const fileName = `${userId}/${Date.now()}-${file.originalname}`;
+		console.log(file);
+		const fileName = `${userId}/${Date.now()}${path.extname(
+			file.originalname
+		)}`;
 		const blob = bucket.file(fileName);
 		const blobStream = blob.createWriteStream({
 			metadata: {
@@ -24,7 +27,7 @@ const uploadResume = async (req, res, next) => {
 			},
 		});
 		blobStream.on("error", (err) => {
-			res.status(500).send(err).json({ status: "failed" });
+			res.status(500).send(err).json({ status: "failed", bytes: file.size });
 		});
 		blobStream.on("finish", () => {
 			res.status(200).json({ status: "successful" });
@@ -57,7 +60,30 @@ const listResume = async (req, res, next) => {
 	}
 };
 
-const downloadResume = async (req, res, next) => {};
+const downloadResume = async (req, res, next) => {
+	const { fileName } = req.query;
+	try {
+		const file = bucket.file(fileName);
+		const [exists] = await file.exists();
+		if (!exists) {
+			res
+				.status(404)
+				.json({ status: "failed", message: "Object does not exists" });
+			return;
+		}
+
+		const signedUrl = await file.getSignedUrl({
+			action: "read",
+			expires: Date.now() + 5 * 60 * 1000,
+			contentType: file.contentType,
+		});
+
+		res.status(200).json({ status: "successful", signedUrl });
+	} catch (error) {
+		res.status(400).json({ error });
+		console.error("Error Downloading File", error);
+	}
+};
 
 module.exports = {
 	uploadResume,

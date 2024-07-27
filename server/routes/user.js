@@ -1,9 +1,8 @@
 const express = require("express");
-const { authenticate } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/dashboard", authenticate, (req, res) => {
+router.get("/dashboard", (req, res) => {
 	res.json({ message: `Welcome ${req.user.username}` });
 });
 
