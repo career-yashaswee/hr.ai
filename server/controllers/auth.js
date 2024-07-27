@@ -36,8 +36,6 @@ const register = async (req, res, next) => {
 		await verificationCode.save();
 		const emailResponse = await Email(email, firstName, verifyCode);
 
-		console.log(emailResponse);
-
 		if (!emailResponse.success) {
 			return Response.json(
 				{ message: "Error Sending Emails" },

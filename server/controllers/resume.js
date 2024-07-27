@@ -10,13 +10,11 @@ const bucket = storage.bucket(bucketName);
 
 const uploadResume = async (req, res, next) => {
 	try {
-		console.log(req);
 		const file = req.file;
 		const { userId } = req.body;
 		if (!file) {
 			res.status(400).json("No File Uploaded");
 		}
-		console.log(file);
 		const fileName = `${userId}/${Date.now()}${path.extname(
 			file.originalname
 		)}`;

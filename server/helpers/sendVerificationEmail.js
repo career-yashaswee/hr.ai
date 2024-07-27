@@ -5,7 +5,7 @@ const resend = new Resend.Resend(process.env.RESEND_API_KEY);
 const sendVerificationEmail = async (email, firstName, verifyCode) => {
 	try {
 		const { data, error } = await resend.emails.send({
-			from: "Acme <onboarding@resend.dev>",
+			from: `Intervue <no-reply@intervue.cloud>`,
 			to: [email],
 			subject: "Here's your Verification Code",
 			html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
