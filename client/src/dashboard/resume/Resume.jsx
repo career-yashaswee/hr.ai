@@ -32,13 +32,11 @@ function Resume() {
 			try {
 				await uploadResume(file)
 					.then((response) => {
-						console.log(response);
 						toast.success("File Uploaded Successfully");
 						setGenNum(response.data.bytes);
 					})
 					.catch((error) => {
-						console.log(error);
-						toast.error("Something went Wrong");
+						toast.error("Something went Wrong", error);
 					});
 			} catch (error) {
 				console.log(error);
