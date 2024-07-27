@@ -58,3 +58,21 @@ export const verifyOTP = async (email, code) => {
 		return error;
 	}
 };
+
+export const validateToken = async (token) => {
+	let config = {
+		method: "get",
+		maxBodyLength: Infinity,
+		url: AUTH_API_URI.VALIDATE_TOKEN,
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	};
+
+	try {
+		const response = axios.request(config);
+		return response;
+	} catch (error) {
+		return error;
+	}
+};

@@ -7,12 +7,15 @@ export const listScenarios = async (userId) => {
 			method: "get",
 			maxBodyLength: Infinity,
 			url: SCENARIO_API_URI.LIST_BY_ID(userId),
-			headers: {},
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
 		};
 		const response = await axios.request(config);
+		console.log(response);
 		return response.data;
 	} catch (error) {
-		// console.error("Error listing scenarios:", error);
+		console.error("Error listing scenarios:", error);
 		throw error;
 	}
 };
@@ -27,6 +30,7 @@ export const createScenario = async (obj) => {
 			url: SCENARIO_API_URI.CREATE,
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 			data: data,
 		};
@@ -49,6 +53,7 @@ export const updateScenario = async (id, updatedData) => {
 			url: SCENARIO_API_URI.UPDATE_BY_ID,
 			headers: {
 				"Content-Type": "application/json",
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 			data: data,
 		};
@@ -67,7 +72,9 @@ export const deleteScenario = async (id) => {
 			method: "delete",
 			maxBodyLength: Infinity,
 			url: SCENARIO_API_URI.DELETE_BY_ID(id),
-			headers: {},
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
 		};
 
 		const response = await axios.request(config);

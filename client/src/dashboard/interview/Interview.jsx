@@ -63,19 +63,19 @@ function Interview({ userId }) {
 	return (
 		<main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 			<div className="flex items-center">
-				<h1 className="text-lg font-semibold md:text-2xl">Sessions</h1>
+				<h1 className="text-lg font-semibold md:text-2xl">Interview</h1>
 			</div>
 			{sessions.length === 0 ? (
 				<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
-					<div className="flex flex-col items-center gap-1 text-center">
+					<div className="flex flex-col items-center gap-1 text-center pb-8 pt-8">
 						<h3 className="text-2xl font-bold tracking-tight">
-							You have no Sessions
+							You have no Interviews Scheduled
 						</h3>
 						<p className="text-sm text-muted-foreground">
-							You can start interviewing as soon as you add a Sessions.
+							You can start taking sessions as soon as you book an interview.
 						</p>
 						<Link to="./create" className="hover:text-gray-500">
-							<Button className="mt-4">Add Session</Button>
+							<Button className="mt-4">Book Interview</Button>
 						</Link>
 					</div>
 				</div>

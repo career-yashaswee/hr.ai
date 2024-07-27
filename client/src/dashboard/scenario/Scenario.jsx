@@ -264,20 +264,20 @@ function Scenario({ userId }) {
 							</CardFooter>
 						</Card>
 					))}
-					<Card
-						className="flex flex-col justify-center items-center cursor-pointer"
-						onClick={handleOpen}
-					>
+					<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm gap-1 text-center pb-8 pt-8 min-h-[12rem]">
 						<Dialog isOpen={isOpen} onOpenChange={setIsOpen}>
 							<DialogTrigger asChild>
-								<Button
-									className="mt-4 border-0 border-dashed"
-									variant="ghost"
-									border-0
-									onClick={() => handleOpen}
+								<div
+									className="flex text-sm items-center justify-center"
+									onClick={handleOpen}
+									style={{
+										width: "100%",
+										height: "100%",
+										cursor: "pointer",
+									}}
 								>
-									+
-								</Button>
+									<i>Click here to add a Job Scenario</i>
+								</div>
 							</DialogTrigger>
 							<DialogContent className="sm:max-w-[425px]">
 								<DialogHeader>
@@ -354,7 +354,7 @@ function Scenario({ userId }) {
 								</DialogFooter>
 							</DialogContent>
 						</Dialog>
-					</Card>
+					</div>
 				</div>
 			)}
 		</main>

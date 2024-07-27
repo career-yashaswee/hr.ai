@@ -1,5 +1,5 @@
 import { useDropzone } from "react-dropzone";
-import { uploadResume, listResume } from "@/helpers/resumeAPI";
+import { uploadResume, listResume, downloadResume } from "@/helpers/resumeAPI";
 import { toast } from "sonner";
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import {
 	CardFooter,
 } from "@/components/ui/card";
 import { ProgressBar } from "@/components/ProgressBar";
+import { DownloadIcon } from "lucide-react";
 // import * as z from "zod";
 // import { Info } from "lucide-react";
 
@@ -18,6 +19,48 @@ function Resume() {
 	const [objects, setObjects] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [genNum, setGenNum] = useState(null);
+
+	const openInNewTab = (url) => {
+		const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+		if (newWindow) newWindow.opener = null;
+	};
+
+	const handleUpload = async (acceptedFiles) => {
+		const file = acceptedFiles[0];
+		if (file) {
+			try {
+				await uploadResume(file)
+					.then((response) => {
+						console.log(response);
+						toast.success("File Uploaded Successfully");
+						setGenNum(response.data.bytes);
+					})
+					.catch((error) => {
+						console.log(error);
+						toast.error("Something went Wrong");
+					});
+			} catch (error) {
+				console.log(error);
+				toast.error("Something went Wrong");
+			}
+		}
+	};
+
+	const handleDownload = async (fileName) => {
+		try {
+			await downloadResume(fileName)
+				.then((response) => {
+					openInNewTab(response.data.signedUrl);
+				})
+				.catch((error) => {
+					console.log(error);
+					toast.error("Something went wrong");
+				});
+		} catch (error) {
+			toast.error("Something went Wrong");
+		}
+	};
 
 	const onDrop = useCallback((acceptedFiles) => {
 		handleUpload(acceptedFiles);
@@ -49,7 +92,7 @@ function Resume() {
 			}
 		};
 		fetchObjects();
-	}, []);
+	}, [genNum, userId]);
 
 	if (loading) {
 		return <ProgressBar />;
@@ -58,25 +101,6 @@ function Resume() {
 	if (error) {
 		return <p>Error: {error}</p>;
 	}
-
-	const handleUpload = async (acceptedFiles) => {
-		const file = acceptedFiles[0];
-		if (file) {
-			try {
-				await uploadResume(file)
-					.then(() => {
-						toast.success("File Uploaded Successfully");
-					})
-					.catch((error) => {
-						console.log(error);
-						toast.error("Something went Wrong");
-					});
-			} catch (error) {
-				console.log(error);
-				toast.error("Something went Wrong");
-			}
-		}
-	};
 
 	return (
 		<main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
@@ -104,12 +128,24 @@ function Resume() {
 								<p>{object.timeCreated}</p>
 							</CardContent>
 							<CardFooter className="flex justify-between">
-								<Button variant="hover" size="sm">
-									Download
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={() => handleDownload(object.name)}
+								>
+									<DownloadIcon></DownloadIcon>
 								</Button>
 							</CardFooter>
 						</Card>
 					))}
+					<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm gap-1 text-center pb-8 pt-8 min-h-[12rem]">
+						<div {...getRootProps({ className: "dropzone" })}>
+							<input {...getInputProps()} name="file" />
+							<p className="text-xs text-muted-foreground">
+								<i>Click or Drag here to upload your resume</i>
+							</p>
+						</div>
+					</div>
 				</div>
 			)}
 		</main>

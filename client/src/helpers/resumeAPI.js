@@ -12,6 +12,7 @@ export const uploadResume = async (file) => {
 			url: RESUME_API_URI.UPLOAD,
 			headers: {
 				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
 			},
 			data: formData,
 		};
@@ -28,7 +29,26 @@ export const listResume = async (_id) => {
 			method: "get",
 			maxBodyLength: Infinity,
 			url: RESUME_API_URI.LIST(_id),
-			headers: {},
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+		};
+		const response = axios.request(config);
+		return response;
+	} catch (error) {
+		return error;
+	}
+};
+
+export const downloadResume = async (fileName) => {
+	try {
+		let config = {
+			method: "get",
+			maxBodyLength: Infinity,
+			url: RESUME_API_URI.DOWNLOAD(fileName),
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
 		};
 		const response = axios.request(config);
 		return response;
