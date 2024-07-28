@@ -9,6 +9,7 @@ import SignUp from "./authentication/sign-up";
 import Error from "./components/Error";
 import { Setting } from "./dashboard/setting/Setting";
 import InterviewSession from "./dashboard/session/InterviewSession";
+import InterviewForm from "./dashboard/interviewform/InterviewDialog";
 import { NetworkStatusProvider } from "./context/NetworkStatusContext";
 import { Toaster } from "sonner";
 import NetworkStatusHandler from "./helpers/NetworkStatusHandler";
@@ -62,6 +63,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<Setting />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="Interviewform"
+						element={
+							<ProtectedRoute>
+								<InterviewDialog/>
 							</ProtectedRoute>
 						}
 					/>
