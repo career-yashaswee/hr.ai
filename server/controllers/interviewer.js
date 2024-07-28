@@ -1,10 +1,17 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
 const Interviewer = require('../models/interview/interviewer');
 
 const getInterviewer =async(req , res)=>{
     const{ interviewerID }= req.params;
+<<<<<<< HEAD
     try{        
         const interviewer = await Interviewer.findById(interviewerID);
+=======
+    try{        const interviewer = await Interviewer.findById(interviewerID);
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
         if (!interviewer) {
             return res.status(404).json({ message: "Interviewer not found." });
         }
@@ -18,6 +25,11 @@ const getInterviewer =async(req , res)=>{
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
 // Function to add an interviewer 
 const addInterviewer = async (req, res) => {
     const {
@@ -60,6 +72,13 @@ const addInterviewer = async (req, res) => {
     }
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
 // Function to delete an interviewer by interviewerID
 const deleteInterviewer = async (req, res) => {
     const { interviewerID } = req.params;
@@ -79,4 +98,8 @@ module.exports = {
     getInterviewer,
     addInterviewer,
     deleteInterviewer
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62

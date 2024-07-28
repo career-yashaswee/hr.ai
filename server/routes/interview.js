@@ -2,10 +2,18 @@ const express = require("express");
 const { validate } = require("../middlewares/validateSchema");
 const {
 	createNewSession,
+<<<<<<< HEAD
     listInterviewSession,
     fetchInterview,
     listInterviewsByUser,
     countInterviewsByUserID,
+=======
+	listInterviewSession,
+	fetchInterview,
+    	listInterviewsByUser,
+    	countInterviewsByUserID,
+	
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
 } = require("../controllers/interview");
 const router = express.Router();
 

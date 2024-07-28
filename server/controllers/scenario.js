@@ -61,6 +61,7 @@ const listScenarios = async (req, res, next) => {
 
 // const listSessions = async (req, res, next) => {
 //     const { userId } = req.query;
+<<<<<<< HEAD
 
 //     try {
        
@@ -97,6 +98,40 @@ const listScenarios = async (req, res, next) => {
 
 
 
+=======
+// 	try {
+//        const uid = new mongoose.Types.ObjectId(userId);
+// 		// Aggregate pipeline to count sessions by userId
+//         const sessionCount = await JobScenario.aggregate([
+//             {
+//                 $match: {
+//                     userId: uid,
+//                 },
+//             },
+//             {
+//                 $group: {
+//                     _id: null,
+//                     totalSessions: { $sum: 1 }
+//                 }
+//             }
+//         ]);
+// // Check if sessionCount is not empty
+//         if (sessionCount.length === 0) {
+//             return res.status(404).json({ message: "No sessions found for this user." });
+//         }
+
+//         // Return the total number of sessions
+//         res.status(200).json({ totalSessions: sessionCount[0].totalSessions });
+// 	} catch (error) {
+//         console.error(error);
+//         next(error);
+//         res.status(500).json({ message: "An error occurred while retrieving sessions." });
+//     }
+// };
+
+
+
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
 // Function to count the number of scenarios created by a specific user
 const countScenarios = async (req, res, next) => {
 	const { userId } = req.query;
@@ -193,6 +228,10 @@ module.exports = {
 	getScenario,
 	updateScenario,
 	deleteScenario,
+<<<<<<< HEAD
 	// listSessions,
+=======
+	// listSessions
+>>>>>>> 4e9d85ea80d8015bb8c11972268b8e20d8f4da62
 	countScenarios,
 };
