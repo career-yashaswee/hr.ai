@@ -28,7 +28,9 @@ const SessionExpiryPopup = ({ show, onClose, message }) => {
 				<DialogHeader>
 					<ShieldAlert></ShieldAlert>
 				</DialogHeader>
-				<DialogTitle className="text-xl font-bold">Session Expired</DialogTitle>
+				<DialogTitle className="text-xl font-bold gradient-text">
+					Session Expired
+				</DialogTitle>
 				<DialogDescription className="text-sm">{message}</DialogDescription>
 				<DialogFooter>
 					<Button variant="shine" className="" onClick={handleRedirect}>

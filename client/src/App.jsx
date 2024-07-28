@@ -17,12 +17,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import useSessionManager from "./clientSession/SessionManager";
 import SessionExpiryPopup from "./components/PopUp";
 function App() {
-	const {
-		isSessionExpired,
-		setIsSessionExpired,
-		isUnauthorizedAccess,
-		setIsUnauthorizedAccess,
-	} = useSessionManager();
+	const { isSessionExpired, setIsSessionExpired } = useSessionManager();
 	return (
 		<ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
 			<NetworkStatusProvider>
@@ -31,10 +26,9 @@ function App() {
 				<div className="App relative">
 					<Router>
 						<SessionExpiryPopup
-							show={isSessionExpired || isUnauthorizedAccess}
+							show={isSessionExpired}
 							onClose={() => {
 								setIsSessionExpired(false);
-								setIsUnauthorizedAccess(false);
 							}}
 							message={
 								isSessionExpired

@@ -118,7 +118,9 @@ export default function SignUp() {
 				<div className="grid gap-2 text-left">
 					<Card className="mx-auto max-w-sm">
 						<CardHeader>
-							<CardTitle className="text-xl pl-2">Sign Up</CardTitle>
+							<CardTitle className="text-xl pl-2 gradient-text">
+								Sign Up
+							</CardTitle>
 							<CardDescription className="pl-2 pb-4">
 								Enter your information to create an account
 							</CardDescription>

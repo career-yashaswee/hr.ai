@@ -134,7 +134,9 @@ function Scenario({ userId }) {
 	return (
 		<main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 			<div className="flex items-center">
-				<h1 className="text-lg font-semibold md:text-2xl">Scenario</h1>
+				<h1 className="text-lg font-semibold md:text-2xl gradient-text">
+					Scenario
+				</h1>
 			</div>
 			{scenarios.length === 0 ? (
 				<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
@@ -153,13 +155,13 @@ function Scenario({ userId }) {
 									variant="shine"
 									onClick={() => handleOpen}
 								>
-									Add Scenario
+									Create Scenario
 								</Button>
 							</DialogTrigger>
 							<DialogContent className="sm:max-w-[425px]">
 								<DialogHeader>
 									<DialogTitle>
-										{editingScenario ? "Edit Scenario" : "Add Scenario"}
+										{editingScenario ? "Edit Scenario" : "Create Scenario"}
 									</DialogTitle>
 								</DialogHeader>
 								<form onSubmit={handleSave} className="grid gap-6">
@@ -282,7 +284,7 @@ function Scenario({ userId }) {
 							<DialogContent className="sm:max-w-[425px]">
 								<DialogHeader>
 									<DialogTitle>
-										{editingScenario ? "Edit Scenario" : "Add Scenario"}
+										{editingScenario ? "Edit Scenario" : "Create Scenario"}
 									</DialogTitle>
 								</DialogHeader>
 								<form className="grid gap-6">

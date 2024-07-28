@@ -4,7 +4,7 @@ import { LoadingButton } from "@/components/ui/loading-button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -71,11 +71,12 @@ export default function InputOTPForm() {
 	return (
 		<div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
 			<div className="min-h-screen flex items-center justify-center">
-				<Toaster position="top-center" richColors />
 				<div className="grid gap-1 text-left">
 					<Card className="mx-auto max-w-sm">
 						<CardHeader>
-							<CardTitle clasname="text-xl pl-2">Verify Your Email</CardTitle>
+							<CardTitle clasname="text-xl pl-2 gradient-text">
+								Verify Your Email
+							</CardTitle>
 							<CardDescription className="">
 								Email sent to{" "}
 								{

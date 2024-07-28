@@ -12,6 +12,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { ProgressBar } from "@/components/ProgressBar";
+import { Info } from "lucide-react";
 function Interview({ userId }) {
 	const navigate = useNavigate();
 	const [sessions, setsessions] = useState([]);
@@ -63,11 +64,14 @@ function Interview({ userId }) {
 	return (
 		<main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
 			<div className="flex items-center">
-				<h1 className="text-lg font-semibold md:text-2xl">Interview</h1>
+				<h1 className="text-lg font-semibold md:text-2xl gradient-text">
+					Interview
+				</h1>
 			</div>
 			{sessions.length === 0 ? (
 				<div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
 					<div className="flex flex-col items-center gap-1 text-center pb-8 pt-8">
+						<Info></Info>
 						<h3 className="text-2xl font-bold tracking-tight">
 							You have no Interviews Scheduled
 						</h3>

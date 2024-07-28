@@ -19,6 +19,7 @@ export const getUserId = async (token) => {
 			.request(config)
 			.then((response) => {
 				localStorage.setItem("_id", response.data.userId);
+				localStorage.setItem("user@first", response.data.firstName);
 			})
 			.catch((error) => {
 				console.error("Error decoding token:", error);

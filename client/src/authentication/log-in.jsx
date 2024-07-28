@@ -17,6 +17,9 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Toggle } from "../components/ui/toggle";
+import { toast } from "sonner";
+import { LoadingButton } from "@/components/ui/loading-button";
+import { CircleAlert } from "lucide-react";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -27,11 +30,13 @@ export default function Login() {
 	} = useForm();
 	const [error, setError] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	};
 
 	const onSubmit = async (data) => {
+		setLoading(true);
 		//TODO: Make the URL Consistent by adding it to the .env file and referencing it here.
 		try {
 			const response1 = await axios.post(
@@ -40,20 +45,26 @@ export default function Login() {
 			);
 
 			localStorage.setItem("token", response1.data.token);
+
 			navigate("/dashboard"); // Redirect to a protected route
 		} catch (err) {
-			setError("Invalid credentials. Please try again.");
+			toast.error("Incorrect Username or Password");
+			// setError("Invalid credentials. Please try again.");
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	return (
-		<div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+		<div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]">
 			<div className="min-h-screen flex items-center justify-center">
 				{/* <Toaster position="top-center" richColors /> */}
 				<div className="grid gap-2 text-left">
 					<Card className="mx-auto max-w-sm">
 						<CardHeader>
-							<CardTitle className="text-xl font-bold">Login</CardTitle>
+							<CardTitle className="text-xl font-bold gradient-text">
+								Login
+							</CardTitle>
 							<CardDescription className="text-balance text-muted-foreground">
 								Enter your username below to login to your account
 							</CardDescription>
@@ -75,7 +86,14 @@ export default function Login() {
 										})}
 										required
 									/>
-									{errors.username && <p>{errors.username.message}</p>}
+									{errors.username && (
+										<div className="flex items-center">
+											<CircleAlert className="h-3 w-3 mr-1 text-red-500"></CircleAlert>
+											<p className="text-xs text-red-500">
+												{errors.username.message}
+											</p>
+										</div>
+									)}
 								</div>
 								<div className="grid gap-2">
 									<div className="flex items-center">
@@ -96,16 +114,27 @@ export default function Login() {
 										})}
 										required
 									/>
-									{errors.password && <p>{errors.password.message}</p>}
+									{errors.password && (
+										<div className="flex items-center">
+											<CircleAlert className="h-3 w-3 mr-1 text-red-500"></CircleAlert>
+											<p className="text-xs text-red-500">
+												{errors.password.message}
+											</p>
+										</div>
+									)}
 								</div>
 								<Toggle
 									className="absolute inset-y-0 right-0 px-3 py-1 text-sm text-gray-600"
 									onChange={togglePasswordVisibility}
 									checked={showPassword}
 								/>
-								<Button type="submit" className="w-full">
-									Login
-								</Button>
+								{loading ? (
+									<LoadingButton loading></LoadingButton>
+								) : (
+									<Button variant="shine" type="submit" className="w-full">
+										Login
+									</Button>
+								)}
 							</form>
 							{error && <p>{error}</p>}
 
@@ -119,9 +148,17 @@ export default function Login() {
 					</Card>
 				</div>
 			</div>
+			{/* <div className="hidden bg-muted lg:block">
+				<Image
+					src="/placeholder.svg"
+					alt="Image"
+					width="1920"
+					height="1080"
+					className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+				/>
+			</div> */}
 		</div>
 	);
 }
 
 //!TODO: Fix the Resizing Problem : https://stackoverflow.com/questions/69250282/googles-sign-in-button-resizes-after-loading
-//!TODO: Add Password Visibility Toogle

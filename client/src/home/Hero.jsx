@@ -34,7 +34,7 @@ export default function Hero() {
 					{/* End Announcement Banner */}
 					{/* Title */}
 					<div className="mt-5 max-w-2xl text-center mx-auto">
-						<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+						<h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl gradient-text">
 							AI Mock Interview Coach
 						</h1>
 					</div>
