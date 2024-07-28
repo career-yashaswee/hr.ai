@@ -18,6 +18,7 @@ const getInterviewer =async(req , res)=>{
 }
 
 
+// Function to add an interviewer 
 const addInterviewer = async (req, res) => {
     const {
         name,
