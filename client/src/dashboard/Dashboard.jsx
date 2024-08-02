@@ -37,21 +37,22 @@ import Interview from "./interview/Interview";
 import Resume from "./resume/Resume";
 import { getUserId } from "@/helpers/api";
 import { DashboardPage } from "./DashboardPage";
-import InterviewSession from "./session/InterviewSession";
-import ReportComponent from "./report/ReportComponent";
+import InterviewSession from "./session/Session";
+import { useNavigate } from "react-router-dom";
+import Report from "./report/Report";
+import Session from "./session/SessionDash";
+import DemoPage from "./session/page";
 
 function Dashboard() {
 	const [selectedComponent, setSelectedComponent] = useState("Dashboard");
+	const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
 	getUserId(localStorage.getItem("token"));
 	const userId = localStorage.getItem("_id");
 	useEffect(() => {
 		// Simulate loading state
 		setIsLoading(true);
-		const timer = setTimeout(() => {
-			setIsLoading(false);
-		}, 1000);
-		return () => clearTimeout(timer);
+		setIsLoading(false);
 	}, [selectedComponent]);
 
 	const renderComponent = () => {
@@ -81,11 +82,11 @@ function Dashboard() {
 			case "Session":
 				return (
 					<div>
-						<InterviewSession></InterviewSession>
+						<DemoPage></DemoPage>
 					</div>
 				);
 			case "Report":
-				return <ReportComponent></ReportComponent>;
+				return <Report></Report>;
 			case "Resume":
 				return (
 					<div>
@@ -95,6 +96,11 @@ function Dashboard() {
 			default:
 				return <div>Dashboard Content</div>;
 		}
+	};
+
+	const logout = () => {
+		localStorage.clear();
+		navigate("/log-in");
 	};
 
 	return (
@@ -120,7 +126,7 @@ function Dashboard() {
 										selectedComponent === "Dashboard"
 											? "bg-primary text-muted"
 											: "bg-muted text-primary hover:text-primary"
-									}`}
+									} rounded-tl-[12px] rounded-tr-[12px]`}
 								>
 									<Command className="h-4 w-4" />
 									Dashboard
@@ -175,7 +181,7 @@ function Dashboard() {
 										selectedComponent === "Resume"
 											? "bg-primary text-muted"
 											: "bg-muted text-primary hover:text-primary"
-									}`}
+									} rounded-bl-[12px] rounded-br-[12px]`}
 								>
 									<Paperclip className="h-4 w-4" />
 									Resume
@@ -310,10 +316,14 @@ function Dashboard() {
 							<DropdownMenuContent align="end">
 								<DropdownMenuLabel>My Account</DropdownMenuLabel>
 								<DropdownMenuSeparator />
-								<DropdownMenuItem>Settings</DropdownMenuItem>
+								<Link to={"/setting"}>
+									<DropdownMenuItem>Settings</DropdownMenuItem>
+								</Link>
 								<DropdownMenuItem>Support</DropdownMenuItem>
 								<DropdownMenuSeparator />
-								<DropdownMenuItem>Logout</DropdownMenuItem>
+								<DropdownMenuItem onClick={() => logout()}>
+									Logout
+								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</header>

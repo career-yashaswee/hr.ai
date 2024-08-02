@@ -10,6 +10,7 @@ import { getHours } from "date-fns";
 // } from "@/components/ui/card";
 
 export function DashboardPage() {
+	const hey = localStorage.getItem("user@first");
 	const currentHour = getHours(new Date());
 
 	const getGreeting = (hour) => {
@@ -28,7 +29,7 @@ export function DashboardPage() {
 				</h1>
 
 				<p className="text-4xl font-bold gradient-text">
-					{localStorage.getItem("user@first")}
+					{hey === "undefined" ? "Cloudy" : hey}
 				</p>
 			</div>
 		</main>

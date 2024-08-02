@@ -81,7 +81,7 @@ const login = async (req, res, next) => {
 				expiresIn: "1 hour",
 			}
 		);
-		res.json({ token });
+		res.status(200).json({ token });
 	} catch (error) {
 		next(error);
 	}
@@ -184,7 +184,9 @@ const decodeToken = async (req, res, next) => {
 	const SECRET_KEY = process.env.SECRET_KEY; // Use environment variables to store your secret key
 	try {
 		const decoded = sign.verify(token, SECRET_KEY);
-		return res.status(201).json({ userId: decoded.userId });
+		return res
+			.status(201)
+			.json({ userId: decoded.userId, firstName: decoded.first });
 	} catch (error) {
 		return { userId: null, error: "Invalid token" };
 	}

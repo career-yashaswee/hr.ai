@@ -7,7 +7,6 @@ import {
 	CardTitle,
 	CardFooter,
 } from "@/components/ui/card";
-import { ProgressBar } from "@/components/ProgressBar";
 import {
 	Dialog,
 	DialogContent,
@@ -25,7 +24,7 @@ import {
 	createScenario,
 	updateScenario,
 } from "@/helpers/scenarioAPI";
-import { Info } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 
 function Scenario({ userId }) {
 	const [title, setTitle] = useState("");
@@ -124,7 +123,12 @@ function Scenario({ userId }) {
 	}, [userId]);
 
 	if (loading) {
-		return <ProgressBar />;
+		return (
+			<div className="flex justify-center items-center h-screen flex-col gap-2">
+				<Loader2 className="h-5 w-5 animate-spin" />
+				<p className="text-sm">Loading</p>
+			</div>
+		);
 	}
 
 	if (error) {
@@ -252,7 +256,7 @@ function Scenario({ userId }) {
 								<p>{scenario.jobDescription}</p>
 								<p>Experience: {scenario.experience} years</p>
 							</CardContent>
-							<CardFooter className="flex justify-between">
+							<CardFooter className="flex justify-between border-t px-6 py-4">
 								<Button
 									variant="outline"
 									size="sm"

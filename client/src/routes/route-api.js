@@ -19,3 +19,7 @@ export const RESUME_API_URI = {
 	LIST: (userId) => `${BASE_URL}/resume/${userId}`,
 	DOWNLOAD: (fileName) => `${BASE_URL}/resume/download?fileName=${fileName}`,
 };
+
+export const REPORT_API_URI = {
+	LIST_BY_ID: (userId) => `${BASE_URL}/report?userId=${userId}`,
+};

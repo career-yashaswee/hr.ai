@@ -8,7 +8,7 @@ import Interview from "./dashboard/interview/Interview";
 import SignUp from "./authentication/sign-up";
 import Error from "./components/Error";
 import { Setting } from "./dashboard/setting/Setting";
-import InterviewSession from "./dashboard/session/InterviewSession";
+import InterviewSession from "./dashboard/session/Session";
 import { NetworkStatusProvider } from "./context/NetworkStatusContext";
 import { Toaster } from "sonner";
 import NetworkStatusHandler from "./helpers/NetworkStatusHandler";

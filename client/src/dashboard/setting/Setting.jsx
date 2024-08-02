@@ -1,80 +1,100 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 
+import {
+	BadgeIndianRupee,
+	BrainCircuit,
+	LifeBuoy,
+	Loader2,
+	Settings,
+} from "lucide-react";
+import { General } from "./General";
+import { Ai } from "./ArtificialIntelligence";
 export function Setting() {
+	const [selectedSection, setSelectedSection] = useState("General");
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		// Simulate loading state
+		setIsLoading(true);
+		setIsLoading(false);
+	}, [selectedSection]);
+
+	const renderSection = () => {
+		if (isLoading) {
+			return (
+				<div className="flex justify-center items-center h-full">
+					<Loader2 className="h-8 w-8 animate-spin" />
+				</div>
+			);
+		}
+
+		switch (selectedSection) {
+			case "General":
+				return <General></General>;
+			case "Ai":
+				return <Ai></Ai>;
+			case "Subscription":
+				return <General></General>;
+			default:
+				return <General></General>;
+		}
+	};
 	return (
 		<main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
 			<div className="mx-auto grid w-full max-w-6xl gap-2">
-				<h1 className="text-3xl font-semibold">Settings</h1>
+				<h1 className="text-3xl font-semibold gradient-text">Settings</h1>
 			</div>
 			<div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
-				<nav className="grid gap-4 text-sm text-muted-foreground">
-					<Link href="#" className="font-semibold text-primary">
+				<nav className="grid text-sm text-muted-foreground">
+					<button
+						onClick={() => setSelectedSection("General")}
+						className={`flex items-center gap-3  px-3 py-2 transition-all ${
+							selectedSection === "General"
+								? "bg-primary text-muted"
+								: "bg-muted text-primary hover:text-primary"
+						} rounded-tl-[12px] rounded-tr-[12px]`}
+					>
+						<Settings className="h-4 w-4" />
 						General
-					</Link>
-					<Link href="#">Security</Link>
-					<Link href="#">Integrations</Link>
-					<Link href="#">Support</Link>
-					<Link href="#">Organizations</Link>
-					<Link href="#">Advanced</Link>
+					</button>
+
+					<button
+						onClick={() => setSelectedSection("Ai")}
+						className={`flex items-center gap-3  px-3 py-2 transition-all ${
+							selectedSection === "Ai"
+								? "bg-primary text-muted"
+								: "bg-muted text-primary hover:text-primary"
+						}`}
+					>
+						<BrainCircuit className="h-4 w-4" />
+						Artificial Intelligence
+					</button>
+
+					<button
+						onClick={() => setSelectedSection("Subscription")}
+						className={`flex items-center gap-3  px-3 py-2 transition-all ${
+							selectedSection === "Subscription"
+								? "bg-primary text-muted"
+								: "bg-muted text-primary hover:text-primary"
+						}`}
+					>
+						<BadgeIndianRupee className="h-4 w-4" />
+						Subscription
+					</button>
+
+					<button
+						onClick={() => setSelectedSection("Support")}
+						className={`flex items-center gap-3  px-3 py-2 transition-all ${
+							selectedSection === "Support"
+								? "bg-primary text-muted"
+								: "bg-muted text-primary hover:text-primary"
+						} rounded-bl-[12px] rounded-br-[12px]`}
+					>
+						<LifeBuoy className="h-4 w-4" />
+						Support
+					</button>
 				</nav>
-				<div className="grid gap-6">
-					<Card x-chunk="dashboard-04-chunk-1">
-						<CardHeader>
-							<CardTitle>Store Name</CardTitle>
-							<CardDescription>
-								Used to identify your store in the marketplace.
-							</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<form>
-								<Input placeholder="Store Name" />
-							</form>
-						</CardContent>
-						<CardFooter className="border-t px-6 py-4">
-							<Button>Save</Button>
-						</CardFooter>
-					</Card>
-					<Card x-chunk="dashboard-04-chunk-2">
-						<CardHeader>
-							<CardTitle>Plugins Directory</CardTitle>
-							<CardDescription>
-								The directory within your project, in which your plugins are
-								located.
-							</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<form className="flex flex-col gap-4">
-								<Input
-									placeholder="Project Name"
-									defaultValue="/content/plugins"
-								/>
-								<div className="flex items-center space-x-2">
-									<Checkbox id="include" defaultChecked />
-									<label
-										htmlFor="include"
-										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-									>
-										Allow administrators to change the directory.
-									</label>
-								</div>
-							</form>
-						</CardContent>
-						<CardFooter className="border-t px-6 py-4">
-							<Button>Save</Button>
-						</CardFooter>
-					</Card>
-				</div>
+				<div className="grid gap-6">{renderSection()}</div>
 			</div>
 		</main>
 	);

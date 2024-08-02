@@ -10,8 +10,10 @@ describe("POST /auth/login", () => {
 		await mongoose.connect(process.env.MONGODB_URI, {});
 	});
 
-	afterAll(async () => {
-		await mongoose.disconnect();
+	afterAll((done) => {
+		// Closing the DB connection allows Jest to exit successfully.
+		mongoose.connection.close();
+		done();
 	});
 
 	it("should return 200 for valid credentials", async () => {

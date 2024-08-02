@@ -10,8 +10,8 @@ import {
 	CardTitle,
 	CardFooter,
 } from "@/components/ui/card";
-import { ProgressBar } from "@/components/ProgressBar";
-import { DownloadIcon } from "lucide-react";
+
+import { DownloadIcon, Loader2 } from "lucide-react";
 // import * as z from "zod";
 // import { Info } from "lucide-react";
 
@@ -93,7 +93,12 @@ function Resume() {
 	}, [genNum, userId]);
 
 	if (loading) {
-		return <ProgressBar />;
+		return (
+			<div className="flex justify-center items-center h-screen flex-col gap-2">
+				<Loader2 className="h-5 w-5 animate-spin" />
+				<p className="text-sm">Loading</p>
+			</div>
+		);
 	}
 
 	if (error) {

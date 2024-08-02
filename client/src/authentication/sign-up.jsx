@@ -25,10 +25,10 @@ import { LoadingButton } from "@/components/ui/loading-button";
 const schema = z.object({
 	username: z
 		.string()
-		.min(4, { message: "Between 3 to 8 characters" })
-		.max(8, { message: "Between 3 to 8 characters" })
-		.regex(/^[a-zA-Z0-9-]+$/, {
-			message: "Letters, numbers and hyphens allowed",
+		.min(4, { message: "Too Short" })
+		.max(8, { message: "Too Long" })
+		.regex(/^[a-z0-9-]+$/, {
+			message: "hypen 0-8 a-z allowed only",
 		}),
 });
 
@@ -114,7 +114,6 @@ export default function SignUp() {
 	return (
 		<div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
 			<div className="min-h-screen flex items-center justify-center">
-				<Toaster position="top-center" richColors />
 				<div className="grid gap-2 text-left">
 					<Card className="mx-auto max-w-sm">
 						<CardHeader>
