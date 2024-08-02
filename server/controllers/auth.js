@@ -10,6 +10,14 @@ const { OAuth2Client } = require("google-auth-library");
 const register = async (req, res, next) => {
 	const { firstName, lastName, username, email, password } = req.body;
 
+	// Regular expression to validate the username
+	const usernameRegex = /^[a-z0-9-]{3,12}$/;
+
+	// Check if the username matches the regular expression
+	if (!usernameRegex.test(username)) {
+		return res.status(400).json({ message: "Invalid username format" });
+	}
+
 	try {
 		const existingUser = await User.findOne({ $or: [{ username }, { email }] });
 		if (existingUser) {
@@ -43,8 +51,9 @@ const register = async (req, res, next) => {
 			);
 		}
 
-		res.json({ username: username });
+		res.status(201).json({ username: username });
 	} catch (error) {
+		res.status(500).json({ message: "Server Error" });
 		next(error);
 	}
 };
@@ -83,6 +92,7 @@ const login = async (req, res, next) => {
 		);
 		res.status(200).json({ token });
 	} catch (error) {
+		res.status(500).json({ code: "SRV_ERR", message: "Server Error" });
 		next(error);
 	}
 };
@@ -100,13 +110,6 @@ const checkUsername = async (req, res, next) => {
 	}
 };
 
-/**
- * Verify email address with a provided verification code.
- * @param {Object} req - The request object containing `email` and `code` fields.
- * @param {Object} res - The response object to send back the result.
- * @param {Function} next - The next middleware function for error handling.
- * @returns {Promise<void>}
- */
 const verifyEmail = async (req, res, next) => {
 	const { email, code } = req.body;
 	try {
@@ -210,6 +213,14 @@ const validateToken = async (req, res, next) => {
 			res.status(401).send({ code: "TOKEN_INVALID" });
 			return;
 		}
+	}
+};
+
+const logout = async (req, res, next) => {
+	try {
+		await validateToken(req);
+	} catch (error) {
+		res.status(500).json({ code: "SRV_ERR", message: "Internal Server Error" });
 	}
 };
 

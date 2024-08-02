@@ -11,6 +11,7 @@ const scenarioRoutes = require("./routes/scenario");
 const sessionRoutes = require("./routes/session");
 const interviewRoutes = require("./routes/interview");
 const resumeRoutes = require("./routes/resume");
+const interviewerRoutes = require("./routes/interviewer");
 
 require("dotenv").config();
 const app = express();
@@ -35,6 +36,7 @@ app.use("/scenario", scenarioRoutes);
 app.use("/session", sessionRoutes);
 app.use("/interview", interviewRoutes);
 app.use("/resume", resumeRoutes);
+app.use("/interviewer", interviewerRoutes);
 
 // Configure multer for file uploads
 const upload = multer({ dest: "uploads/" });

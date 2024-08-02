@@ -8,7 +8,10 @@ const validate = (schema) => (req, res, next) => {
 
 		next();
 	} catch (err) {
-		return res.status(400).send(err.errors);
+		return res
+			.status(400)
+			.json({ code: "BAD_RQST", message: "Schema Validation Failed" })
+			.send(err.errors);
 	}
 };
 
